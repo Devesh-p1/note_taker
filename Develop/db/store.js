@@ -21,4 +21,15 @@ class Store {
           return parsedNotes;
         });
     }
+    addNote(note) {
+        const { title, text } = note;
+        if (!title || !text) {
+          throw new Error("Note 'title' and 'text' cannot be blank");
+        }
+        const newN = { title, text, id: uid() };
+        return this.getNotes()
+          .then((notes) => [...notes, newN])
+          .then((updatedNotes) => this.write(updatedNotes))
+          .then(() => newN);
+      }
 }
