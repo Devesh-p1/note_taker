@@ -7,3 +7,9 @@ route.get('/notes', (req, res) => {
         return res.json(notes);
     })
 });
+route.post('/notes', (req, res) => {
+    store
+    .addNote(req.body)
+    .then((note) => res.json(note) )
+    .catch((err) => res.status(500).json(err));
+});
